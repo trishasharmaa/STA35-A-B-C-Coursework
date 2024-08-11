@@ -1,1 +1,2 @@
 # STA35-A-B-C-Coursework
+This repository contains tasks from my Statistical Data Science course series at UC Davis (STA 35A, B, C). Throughout these courses, I honed my skills in R programming, focusing on data analysis and visualization. I worked with various R libraries, including tidytext for text mining and ggplot2 for creating insightful visualizations. These projects reflect my hands-on experience with data manipulation, analysis, and the practical application of statistical concepts.
