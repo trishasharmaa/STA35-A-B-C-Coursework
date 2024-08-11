@@ -1,0 +1,30 @@
+---
+title: "Tsharma_lab4"
+author: "Trisha Sharma"
+date: "2023-10-26"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#PART 1
+
+```{r}
+library(ggplot2)
+ggplot(data = mtcars, mapping = aes(x = mpg)) + 
+  geom_histogram(fill = 'antiquewhite1', binwidth = 2) +
+  labs( x="MPG of cars")
+```
+
+#PART 2
+```{r}
+ggplot(data= mtcars,mapping=aes(x= wt,y=mpg,color=gear))+
+  geom_point()+
+  facet_wrap(~vs)+
+  labs(x="Weight",y="MPG",title="Weight vs MPG")
+```
+```{r}
+sessionInfo()
+```
+

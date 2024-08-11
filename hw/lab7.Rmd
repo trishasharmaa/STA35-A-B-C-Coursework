@@ -1,0 +1,123 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r set-up, echo = FALSE}
+knitr::opts_chunk$set(warning = FALSE, 
+                      echo = TRUE, 
+                      message = FALSE)
+```
+
+
+```{r load-packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(ggthemes) 
+library(ggplot2)
+```
+
+
+ 
+### Question 1
+
+One consultant says US average complication rate for surgeries is 30%, but out of his 62 patients, his complication rate is 4.84%. He claims that his complication rate is not 30%.
+
+(1) Formulate a hypothesis test, specifying the null and the alternative hypothesis. (1 pt).
+
+
+Null Hypothesis (H0): The consultant's complication rate is equal to the national average of 30%.
+Alternative Hypothesis (H1): The consultant's complication rate is not equal to the national average of 30%.
+
+(2) Use `rbinom` to generate 10000 binomial random samples with 62 trials ($n = 62$) and  success probability of 0.3 ($p = 0.3$). Name these samples as 'num_successes' (1 pt).
+
+```{r}
+num_successes <- rbinom(10000, 62, 0.3)
+```
+
+(3) Calculate the proportion of each sample. Save the proportions as a tibble 'bin.prop' (1 pt).
+```{r}
+bin.prop <- tibble(binomial_proportion = num_successes / 62)
+```
+
+(4) Plot a histogram of 'bin.prop'(1 pt).
+```{r}
+ggplot(bin.prop, aes(x = binomial_proportion)) +
+  geom_histogram(binwidth = 0.01, fill = "blue", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of Binomial Proportions", x = "Proportion", y = "Frequency")
+```
+
+(5) Is success-failure condition satisfied (1 pt)?
+```{r}
+n <- 62
+p <- 0.3
+
+success_failure_condition <- n * p >= 10 && n * (1 - p) >= 10
+print(success_failure_condition)
+```
+
+
+(6) Calculate the $SE(\hat{p})$ in hypothesis testing, and save it as 'se' (1 pt).
+```{r}
+se <- sqrt(p * (1 - p) / n)
+```
+
+
+(7) Calculate the z-score of $\hat{p}$, and save it as 'z' (1 pt).
+
+```{r}
+rate <- 4.84 / 100  
+z <- (rate - 0.3) / se
+```
+
+
+(8) Calculate the $p-value$, and save it as 'p' (2 pts).
+```{r}
+p <- 2 * pnorm(-abs(z))
+```
+
+(9) Can we reject the null hypothesis at significance level of 0.05 (1 pt)?
+```{r}
+alpha <- 0.05
+reject_null <- p < alpha
+print(reject_null)
+```
+
+\newpage 
+
+### Question 2
+In 2006, DC Cherry Blossom Race (10 miles) had average of 100 minutes. Will use data from 100 participants from 2017 to determine whether runners are getting faster. For sample of 100 runners, 2017 data had average of 101 and s.d. of 16.59.
+
+(1) Formulate a hypothesis test, explaining what the null hypothesis and alternative hypothesis are. 
+
+Null Hypothesis (H0): The average running time of participants in 2017 is equal to the average running time in 2006.
+Alternative Hypothesis (H1): The average running time of participants in 2017 is different from the average running time in 2006 
+
+
+(2) What distribution shall we use for the test statistic for the hypothesis test (1 pt)?
+
+Since the sample size is 100 and the population standard deviation is not known, we should use the t-distribution for the test statistic.
+
+(3) Calculate a T-score, and save it as 't' (1 pt).
+```{r}
+sample_mean <- 101
+population_mean <- 100
+sample_sd <- 16.59
+sample_size <- 100
+t<-(sample_mean - population_mean) / (sample_sd / sqrt(sample_size))
+t
+```
+
+
+
+(4) Use `pt` to calculate the p-value and name it as 'p'(1 pt).
+```{r}
+p <- 2 * pt(t, df = sample_size - 1)
+```
+
+(5) Can we reject at level 0.05 (1 pt)?
+```{r}
+alpha <- 0.05
+reject_null <- p < alpha
+print(reject_null)
+```
+

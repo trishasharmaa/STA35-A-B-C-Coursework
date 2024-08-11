@@ -1,0 +1,97 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r set-up, echo = FALSE}
+knitr::opts_chunk$set(warning = FALSE, 
+                      echo = TRUE, 
+                      message = FALSE)
+```
+
+
+```{r load-packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(MASS)
+library(ggthemes) 
+```
+
+
+ 
+### Question 1
+
+Refer to the dataset 'iris',
+
+(1) Use `str`, find the data types of variables in iris.
+
+```{r}
+iris%>%str
+```
+
+
+(2) Use `levels`, find the levels of 'Species' variable in iris.
+
+```{r}
+iris$Species%>%levels
+```
+
+
+(3) Fit a linear model 'm.full' of 'Sepal.Length' on all remaining variables and get the summary. 
+
+
+
+```{r}
+m.full <- lm(Sepal.Length ~ ., data=iris) 
+summary(m.full)
+```
+
+(4) Use 'update' to do backward elimination.  Is there a smaller model with better adjusted R squared?  What is the final model after using backward elimination? 
+
+
+```{r}
+m.reduced <- step(m.full, direction="backward")
+summary(m.reduced)
+```
+
+
+### Question 2
+
+(1) Use `rnorm` to generate 100 samples from $$N(0,1)$$, and name it as 'sple'.
+
+
+```{r}
+sple = rnorm(100,0,1)
+m = sple%>%mean() 
+m
+```
+
+
+(2) Calculate the mean of 'sple', and name it as 'm'.
+
+
+
+```{r}
+sple = rnorm(100,0,1)
+m = sple%>%mean() 
+m
+```
+
+
+
+(3) Draw 100 bootstrap samples and calculate their means. Name the means as 'ms'.
+
+(4) Use 'ggplot' to draw a histogram of 'ms'.
+
+(5) Using these 100 bootstrap samples, provide an estimate for the 95% bootstrap confidence interval for the population mean.
+
+
+
+```{r}
+ms = numeric() 
+for(i in 1:100){
+ms[i] = sample(sple,100, replace = TRUE)%>%mean() }
+ggplot(tibble(ms),aes(x=ms))+geom_histogram()
+```
+
+
+

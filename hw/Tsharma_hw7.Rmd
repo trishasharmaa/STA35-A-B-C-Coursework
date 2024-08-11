@@ -1,0 +1,264 @@
+---
+title: "hw 7"
+author: "Trisha Sharma"
+date: "2023-12-07"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+PROBLEM 1
+
+
+#A PART
+
+
+Xi follows a bernoulli distribution. The parameters "p" which is the probability of success.In this question,p= 0.7.
+The mean and the variance of the random binomial variable is given by p and p(1-p) respectively.
+therefore mean is 0.7 nd the variance is as follows:
+```{r}
+var= 0.7*(1-0.7)
+var
+```
+
+#B part
+
+```{r}
+p<- 0.7
+n<- 500
+var1<-(p*(1-p)/n)
+var1
+```
+
+ 
+ 
+```{r}
+mean2<- n*p
+sd2<-sqrt(n*p*(1-p))
+mean2
+sd2
+
+```
+ Calculating the probability that more that 361 students consumed alcoholic beverages using pbinom as the distributuion is binomial.
+```{r}
+1-pbinom(361,500,0.7)
+```
+
+
+#C PART
+
+A different way to think about ni=1Xi is a single draw from binomial distribution.As the sample size is large the sample distribution becomes normal.The parameters of this distribution include mean and standard deviation.It is denoted as N(mu,sigma),and for large sample size the denotion is guven by N(0,1). Calclating the probability below:
+```{r}
+1-pnorm(361,mean2,sd2)
+```
+
+
+The probability is nearly the same as the one found out from the binomial method.This was expected as the sample size is large so the result in both the cases should be consistent, and according to the Central limit theorum when we collect a  large sample of n independent observations with known mean and standard deviation,the sampling distribution becomes normal regardless of the original distribution of the sample.
+
+
+
+
+
+
+PROBLEM 2
+
+```{r}
+library(palmerpenguins)
+dplyr::glimpse(penguins)
+library(tidyverse)
+```
+
+
+PROBLEM 2A
+
+
+
+#A PART
+
+To find out the point estimate for population mean,we first find out the sample mean. Further we estimate the population mean using the sample mean. 
+
+
+```{r}
+p1<-penguins
+p1
+p2<-na.omit(p1$body_mass_g)
+E_mu<-mean(na.omit(p1$body_mass_g))
+E_mu
+```
+Therefore the population mean can be estimated as 4207.057.
+
+
+
+
+-Secondly,To calculate the population variance we use the sample variance as the estimater.
+
+```{r}
+v3<-var(p2)/344
+v3
+```
+Therefore the population variance can be estimated as 1869.567.
+
+
+
+
+#B PART
+
+For a 99% confidence level interval, the significant value is taken as 0.01 ,that is, the value of alpha is 0.01. The interval is given by (point estimate+-margin of error). Margin of error is further given by z-score*sd/sqrt(n).
+
+The z-score is :
+```{r}
+zs<-qnorm(0.995)
+zs
+```
+The standard deviation:
+```{r}
+sd3<- sqrt(v3)
+sd3
+```
+The margin of error is:
+The n is reduces to 344 as the NA values are omitted.
+```{r}
+MOE<- zs*sd3
+MOE
+```
+CONFIDENCE INTERVAL:
+```{r}
+E_mu-MOE
+E_mu+MOE
+```
+Therefore the confidece interval is (4090.379,4313.129).
+
+
+#C PART
+
+For part (b) we assume that the sample follows a normal dstribution and that the sample size is large enough for the central limit theorum to ne applied to it. Secondly, we use the thumb rule that states that if n>5 or 10 or 30 then the sample size is considered large enough for the sampling distribution to be normal.
+
+
+#D PART 
+
+
+If we were to repeat this procedure a large number of times, then it is 99% sure that the true population mean body mass of the penguins lie in the interval (4094.903,4319.211).
+
+
+
+PROBLEM 2B
+
+
+
+#A PART
+
+
+
+```{r}
+greater_45<-ifelse(na.omit(p1$bill_length_mm)>45,1,0)
+sum(greater_45)
+mean(greater_45)
+
+```
+
+
+
+#B PART
+For a 95% confidence level interval, the significant value is taken as 0.05 ,that is, the value of alpha is 0.05. The interval is given by (point estimate+- margin of error). Margin of error is further given by z-score*sd/sqrt(n).
+
+Z~value for 95% is:
+
+
+```{r}
+z_45<-qnorm(0.975)
+```
+to find the popultion proportion we willrequire the mean of the bills longer than 45:
+```{r}
+p_cap<-mean(greater_45)
+```
+The interval is given by (point estimate+-margin of error). Margin of error is further given by z*sqrt(p(1-p)/n.
+```{r}
+n<-344
+MOE_45<- z_45*sqrt(p_cap*(1-p_cap)/n)
+MOE_45
+p_cap-MOE_45
+p_cap+MOE_45
+```
+Therefore,the CI is ( 0.4296516,0.5352607).
+
+
+
+#C PART
+
+As the sample size increases the confidence intervals become narrower. This is because the more the sample size the preciser the results. Margin of error decreases as the sample size increases,this can be shown by looking at the formula for the margin or error:
+margin of error = sqrt(p(1-P)/n). This demonstrated that as n increases the margin of eroor decreases which leads to a narrower confidence interval.
+
+
+
+
+
+PROBLEM 2C
+
+
+
+#A PART
+
+For a 90% confidence interval the value of the significance level is 0.1, that is , the alpha = 0.1.The confidence interval is given by point (estimate+-margin or error).
+
+The z~ value is as follows:
+```{r}
+z_val<-qnorm(0.95)
+z_val
+```
+
+The point estimate for flipper length of the penguins can be estimated using the sample mean. This can be done like this:
+ 
+ 
+```{r}
+p4<- na.omit(p1$flipper_length_mm)
+mean_flipper<- mean(p4)
+mean_flipper
+sd_flipper<- sd(p4)/sqrt(344)
+sd_flipper
+
+```
+Therefore, the population mean can be estimated to be 200.967.
+-----> Now, let's calculate the margin of error.
+ 
+```{r}
+n<-344
+#Post omitting NA values
+MOE_flipper<- z_val*(sd_flipper)
+MOE_flipper
+mean_flipper-MOE_flipper
+mean_flipper+MOE_flipper
+```
+ If we were to repeat this procedure a large number of times,it is 90% sure that the true population mean of the flipper length of the penguins will lie in the interval (199.6681,202.1623).
+ 
+ 
+ 
+#B PART
+
+null hypothesis(Hnot): mu= 200mm
+alternate hypothesis(Ha): mu!= 200mm
+ lets find out the critical value of this, Xbar-mu/sd/sqrt(n)
+ 
+ 
+```{r}
+Z<- (200-200.9152)/(sd_flipper)
+Z
+```
+ If the critical value is greater than the z-score value which in this is 1.64 as the value of alpha is 0.1 then we reject the null hypothesis.In this case abs(-65.07314)>1.64,which means that we reject the clain that the population mean flipper length is 200mm.
+ 
+ 
+ To verify this we can also use the p-value approach which is done below:
+
+```{r}
+2*pnorm(-1.207138)
+```
+
+If the p-value< alpha then we reject the null hypothesis. In this case the value of alpha is 0.1 and the p-value is 0 so we reject the null hypothesis.
+
+
+```{r}
+sessionInfo()
+```
+

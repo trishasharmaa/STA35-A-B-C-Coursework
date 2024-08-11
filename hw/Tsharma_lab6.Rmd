@@ -1,0 +1,113 @@
+---
+title: "lab-6"
+author: "Trisha Sharma"
+date: "2023-11-13"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Part 1
+
+#a part
+
+
+a) What is the probability that half the adults will like animal fries?
+```{r}
+dbinom(15,30,0.7)
+```
+
+
+
+
+#b
+
+b) What is the probability that at least 2 adults will like animal fries?
+```{r}
+1-pbinom(1,30,0.7)
+```
+
+#c
+
+
+c) What is the probability that between 5 and 20 adults will like animal fries?
+```{r}
+ pbinom(20, 30, 0.7) - pbinom(4, 30, 0.7)
+```
+
+
+#d
+
+d) Simulate 1000 of these random variables. Create a histogram of this simulation. Explain why it
+makes sense that the histogram’s highest peak occurs at a value around 21?
+
+
+```{r}
+random_var<-rbinom(1000,30,0.7)
+hist(random_var)
+```
+The highest peak is around 21 as the probability of people liking animal fries is 70% of 30 people.If we calculate 0.3*0.7 we get the probability of 0.21.
+
+
+
+#e
+
+
+
+(e) Suppose that the number of people who like In n’ Out’s milkshakes in a given classroom is known
+to follow a binomial distribution with n = 30 and p = 0.8. Let Y denote this random variable.
+Find E(X + Y ).
+
+
+E(X+Y)=E(X)+E(Y)
+
+```{r}
+E_X<- 0.7*30
+E_Y<- 0.8*30
+E_SUM<-E_X+E_Y
+print(E_SUM)
+```
+
+Part 2
+
+
+#a part
+
+
+a) What is the expected number of people who will disappear yearly? What is the variance?
+
+->  For Poisson distribution E(X) and VAR(X) are the same as the kniwn average rate(lambda).
+therefore E(X)=30 and Var (X)=30.
+
+
+#b part 
+
+
+b) Find the probability that less than 10 people will disappear?
+```{r}
+ppois(10,30)-dpois(10,30)
+```
+
+
+#c part 
+
+
+c) Suppose additionally, that the number of Eggo waffles stolen from a local grocery store (yearly),
+is 200. Simulate 20 years’ worth of Eggo-waffle heists. Using R, find the proportion of years (in
+the 20 simulated), in which the number of Eggo-waffles stolen was less than or equal to 80. Hint:
+Use a logical comparison, and consider using the mean function.
+
+
+```{r}
+set.seed(35)
+prop<-rpois(20,200)
+prop_80<- mean(prop<= 80)
+print(prop_80)
+
+```
+
+```{r}
+sessionInfo()
+```
+

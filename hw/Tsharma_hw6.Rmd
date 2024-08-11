@@ -1,0 +1,164 @@
+---
+title: "hw-6"
+author: "Trisha Sharma"
+date: "2023-12-01"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+PROBLEM 1
+
+
+
+#a part
+
+
+
+The tree heights follow normal distribution.
+the parameters include:
+-mean, mu = 100
+-sd, standard deviation sigma = 25
+
+
+
+
+
+#b part
+
+
+
+
+```{r}
+1- pnorm(25,mean=100,sd=25)
+```
+
+
+
+
+
+#c part
+
+
+
+
+```{r}
+pnorm(180,mean=100,sd=25) - pnorm(120,mean=100,sd=25)
+```
+
+
+ PROBLEM 2
+ 
+ 
+ 
+ 
+#a part
+
+
+Considering a random sample of normal distribution. The mean is 100 and the standard deviation is 20.
+the first,second and third standard deviations from the mean and their values are as follows:
+
+```{r}
+sd1<-pnorm(120,100,20)-pnorm(80,100,20)
+sd2<-pnorm(140,100,20)-pnorm(60,100,20)
+sd3<-pnorm(160,100,20)-pnorm(40,100,20)
+sd1
+sd2
+sd3
+```
+
+
+
+#b part
+
+
+
+```{r}
+sd68 <- 2*(pnorm(120,100,20))-1
+sd95 <- 2*(pnorm(140,100,20))-1
+sd99 <- 2*(pnorm(160,100,20))-1
+sd68
+sd95
+sd99
+```
+
+
+
+
+
+
+PROBLEM 3
+
+
+
+#a part
+
+
+Y follows normal distribution.The mean and the standard deviation are as follows:
+Since Y=1/2n(Xbar), 
+         mean= mu/2
+         variance= sigma^2/4n
+         
+         
+         
+         
+         
+         
+#b part
+
+
+According to the Central Limit Theorum, as n becomes large, the distribution of Xbar approaches a normal distribution.Since Xbar is normally distributed for a large n, Y will also be normally distributed.Thus, the mean and standard deviation of Y can be derived as follows:
+E(Y) = mu/2
+VAR(Y) = sigma^2/4n
+
+
+PROBLEM 4
+ 
+
+
+#a part
+
+
+```{r}
+org_dist<- 1- pnorm(180,150,30)
+org_dist
+standard_dist<- (180-150)/30
+prob<- 1- pnorm(standard_dist)
+prob
+```
+
+#b part 
+For independent samples,the central limit theorum states that as the sample size increases the sample mean approaches normal distribution. The mean of the sample is aproximately equal to the population mean, whuch is, mu.The standard deviation is sigma/ underoot n. 
+
+
+
+#c part
+
+
+```{r}
+sim_1000<- rnorm(1000,150,30)
+mean(sim_1000)
+```
+
+
+
+#d part
+
+
+```{r}
+sim<- matrix(rnorm(1000 * 5000, 150, 30),ncol=5000)
+mean1<- colMeans(sim)
+final_mean<- mean(mean1)
+std_dev<- sd(mean1)
+final_mean
+std_dev
+```
+The sample mean should be close to the population mean which is 150, and it turned out to be the expected mean. The standard deviation should be closer to 30/underoot 1000 (sigma/underoot n).
+
+
+```{r}
+sessionInfo()
+```
+

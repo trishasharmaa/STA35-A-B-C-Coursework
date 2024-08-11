@@ -1,0 +1,81 @@
+---
+title: "lab 1"
+author: "Trisha Sharma"
+date: "2024-01-16"
+output: pdf_document
+---
+
+
+```{r set-up, echo = FALSE}
+knitr::opts_chunk$set(warning = FALSE, 
+                      echo = TRUE, 
+                      message = FALSE)
+```
+
+```{r load-packages, warning=FALSE, message=FALSE}
+library(nycflights13)
+library(tidyverse)
+head(flights)
+
+```
+
+#  Question 1
+
+```{r}
+carrier1 <- c("UA", "AA", "DL")
+carrier2 <- filter(flights, carrier %in%carrier1)
+num_flights <- count(carrier2, carrier)
+num_flights
+
+
+
+
+#b part
+
+
+
+dep_delay_percentage <- carrier2 %>% 
+  group_by(carrier) %>% 
+  summarise(dep_delay_percentage = mean(dep_delay > 0, na.rm = TRUE) * 100)
+dep_delay_percentage
+
+```
+
+#question 2
+
+```{r}
+flights%>%
+  select(origin,dep_delay)%>%
+  mutate(dep_delay_hours= dep_delay/60) %>%
+  group_by(origin)%>%
+  summarize(avg_dep_delay_hrs=mean(dep_delay_hours,na.rm= T),
+               dep_delay_percentage=mean(dep_delay_hours>0,na.rm= T))
+
+```
+
+
+
+
+#Question 3
+
+
+```{r}
+flights%>%
+  mutate(dep_delay_new= ifelse(is.na(dep_delay), mean(dep_delay,na.rm=T), dep_delay))
+```
+
+
+# Question 4
+
+
+
+
+```{r}
+flights%>%
+  group_by(year,month)%>%
+  summarize(dep_delay_percentage=mean(dep_delay>0))
+```
+```{r}
+sessionInfo()
+```
+

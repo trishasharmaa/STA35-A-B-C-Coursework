@@ -1,0 +1,143 @@
+---
+title: "hw 5"
+author: "Trisha Sharma"
+date: "2023-11-16"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+HOMEWORK 5
+
+
+PROBLEM 1
+
+
+
+#b part
+
+```{r}
+n <- 5
+x <- 0
+p <- 0.31
+
+PMF<- choose(n, x) * p^x * (1 - p)^(n - x)
+PMF
+```
+
+
+PROBLEM 2
+
+#A part
+
+
+```{r}
+n <- 1500
+x <- 930
+p <- 0.6
+
+small_prob <- lchoose(n, x) + x * log(p) + (n - x) * log(1 - p)
+prob_exact <- exp(small_prob)
+prob_exact
+```
+
+
+
+#B part. 
+
+
+```{r}
+
+prob_more <- sum(dbinom(931:1500, size = n, prob = p))
+prob_more
+```
+
+
+#C part
+
+
+
+```{r}
+mean<- n*p
+Var<- n*p*(1-p)
+print(mean)
+print(Var)
+```
+#D part 
+
+
+
+
+```{r}
+rbinom(1, 1500,0.6)
+```
+Therefore 876 students attended college.
+
+
+#E part
+
+
+
+ -Binomial distributuion was used in each draw.
+ -The paramters include 'n'= number of trials and 'p' probability of success on each trial.
+ -The theoritical mean is n*p.
+ -The theoritical variaance is n*p *(1-p).
+ 
+ 
+ 
+#F part.  
+
+
+
+According to the Law of Large Numbers as the sample size grows the sample mean gets closer to the expected value or the population mean.Therefore,as the sample siza increases the sample mean converges to the population mean.
+If we had a sample size of 10000 instead of 1500, the expected number of students attending would be:
+an=10000*0.6=6000
+
+
+
+PROBLEM 3
+
+
+#A part 
+
+
+
+The number of accidents at that intersection in a year follow tthe Poisso distribution.
+The parameters include:
+- lambda= average rate of events
+
+
+The mean and variance both are lambda for this distribution.In this case, lambda =12 as there are 12 months in a year.
+
+
+#B part
+
+
+
+```{r}
+ppois(10,1)
+```
+
+
+#C part
+
+
+```{r}
+ppois(3,1)
+```
+
+No, it wont be considered unsual if 3 or fewer accidents occur in an year because the probability of that is 0.98 which means it is very likely for that to happen.
+
+
+```{r}
+sessionInfo()
+```
+
+ 
+ 
+ 
+ 
+
+

@@ -1,0 +1,100 @@
+---
+title: "Tsharma_lab2"
+author: "Trisha Sharma"
+date: "2023-10-08"
+output: pdf_document
+---
+PART 1
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+The vector is as folows:
+```{r}
+myVec <- c(1,2,5,9,112)
+print(myVec)
+```
+The mean of the elements of the myVec vector is:
+```{r}
+mean_myVec <- mean(myVec)
+print(mean_myVec)
+```
+On subtracting elements 2 and 3 from myVec we get,
+```{r}
+Diff_myVec <- myVec[2]-myVec[3]
+print(Diff_myVec)
+
+```
+
+The second vector created is as follows:
+```{r}
+myVec_new <- c(9,8,3,-1,111)
+print(myVec_new)
+
+```
+The difference between myVec and myVec_new turns out to be :
+
+```{r}
+Diff_Vecs <- myVec-myVec_new
+print(Diff_Vecs)
+
+```
+The standard deviation of the vectors :
+```{r}
+std_devi<- sd(Diff_Vecs)
+print(std_devi)
+
+```
+
+
+```{r}
+equal_8<- myVec != c(8,8,8,8,8)
+print(equal_8)
+
+```
+
+PART 2
+```{r}
+data(trees) 
+trees <- as.matrix(trees, dimnames = NULL)
+```
+#a 
+The mean and the standard deviation,respectively:
+```{r}
+mean_values <- apply(trees,2,mean)
+std_dev_values <- apply(trees, 2, sd)
+print(mean_values)
+print(std_dev_values)
+```
+#b
+ 3rd recorded cherry tree:
+```{r}
+trees[3,]
+```
+#c
+```{r}
+diameter <- trees[ ,1]
+print(diameter)
+```
+Since 1 foot is equal to 12 inches, therefore to convert every element from inches to feet we divide every element by 12.
+```{r}
+diameter_feet <- diameter/12
+print(diameter_feet)
+```
+#d
+```{r}
+new_matrix <- matrix(c(diameter_feet,trees[,2],ncol=2))
+print(new_matrix)
+
+```
+The 3rd recorded cherry tree (row) from this matrix is:
+```{r}
+print(new_matrix[3,])
+```
+
+```{r}
+sessionInfo()
+```
+
+
+
+
